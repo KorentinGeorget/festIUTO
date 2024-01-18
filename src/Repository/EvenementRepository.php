@@ -69,4 +69,18 @@ class EvenementRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function findEvenementBySpectateur($id): array
+    {
+        return $this->createQueryBuilder('e')
+            ->join('e.spectateurs', 's')
+            ->andWhere('s.id = :id')
+            ->setParameter('id', $id)
+            ->orderBy('e.dateEv', 'ASC')
+            ->addOrderBy('e.heureDebut', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 }

@@ -2,6 +2,13 @@
 
 {% block body %}
     <h1>Evenements du festival : {{ evenements[0].festival.nom }}</h1>
+
+        {% for message in app.flashes('warning') %}
+			<div>
+				{{ message }}
+			</div>
+		{% endfor %}
+
         <div>
             <table>
                 <thead>
@@ -28,7 +35,7 @@
                             <td><a href="{{ path('evenement.show', { id : evenement.id })}}">voir</a></td>
                             {% if app.user %}
                                 {% if 'ROLE_SPECTATEUR' in app.user.roles %}
-                                     <td><a href="">participer</a></td>
+                                     <td><a href="{{ path('evenement.participe', {id : evenement.id} )}}">participer</a></td>
                                 {% else %}
                                     <td><a disabled>participer</a></td>
                                 {% endif %}

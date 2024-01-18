@@ -2,25 +2,45 @@
 
 {% block body %}
 
-{{ user.nom }}
-{{ user.prenom }}
-{{ user.email }}
+<ul>
+<li>Nom : {{ user.nom }}</li>
+<li>Prénom : {{ user.prenom }}</li>
+<li>Email : {{ user.email }}</li>
 
 
 {% if 'ROLE_MEMBRE' in app.user.roles %}
+    <ul>
     {% for instrument in membre.instruments %}
-        {{ instrument.nomInstrument }}
+        <li>{{ instrument.nomInstrument }}</li>
     {% endfor %}
-    <a href="{{ path('instrument.new') }}">Ajouter un nouvelle instrument</a>
+    </ul>
+    <li><a href="{{ path('instrument.new') }}">Ajouter un nouvelle instrument</a></li>
 
-    
     {% if membre.groupe is null %}
-        Demander a un admin de vous ajouter a un groupe
+        <li>Demander a un admin de vous ajouter a un groupe</li>
     {% else %}
-        {{ membre.groupe.nomGroupe }}
+        <li>Nom du groupe : {{ membre.groupe.nomGroupe }}</li>
     {% endif %}
+
+    {% if membre.groupe is null %}
+        <li>Pas d'hebergement pour le moment</li>
+    {% else %}
+        {% if membre.groupe.hebergements is empty %}
+        <li>Pas d'hebergement pour le moment</li>
+        {% else %}
+            <li>Hebergement : </li>
+            <ul>
+            {% for hebergement in membre.groupe.hebergements %}
+                <li>Nom : {{ hebergement.nomHebergement }}</li>
+                <li>Adresse : {{ hebergement.adresse }}</li>
+                <li>Place : {{ hebergement.nbPlaceHebergement }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
+    <li>Demander a un admin pour avoir acces a un hebergement</li>
     
-    
+</ul>
 
 {% endif %}
 

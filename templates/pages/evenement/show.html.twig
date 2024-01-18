@@ -1,5 +1,66 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+    <h1>Evenement : {{ evenement.nom }}</h1>
+
+        {% for message in app.flashes('success') %}
+			<div>
+				{{ message }}
+			</div>
+		{% endfor %}
+
+    <h2>INFOS</h2>
+        <ul>
+            <li>Date : {{evenement.dateEv|date('Y:M:d')}}</li>
+            <li>Heure début : {{evenement.heureDebut|date('h:m')}}</li>
+            <li>Durée : {{evenement.dureeEv|date('h:m')}}</li>
+            <li>Groupe : 
+                <ul>
+                    <li>Nom : {{evenement.groupe.nomGroupe}}</li>
+                    <li>Style : <ul>
+                        {% for style in evenement.groupe.styles %}
+                            <li>{{style.nomStyle}}</li>
+                        {% endfor %}
+                    </ul> </li>
+                    <li>Membres : <ul>
+                        {% for membre in evenement.groupe.membres %}
+                            <li>{{membre.nom}} {{membre.prenom}} joue :<ul>
+                                {% for instrument in membre.instruments %}
+                                    <li>{{instrument.nomInstrument}}</li>
+                                {% endfor %}
+                            </ul></li>
+                        {% endfor %}
+                    </ul></li>
+                </ul>
+            </li>
+            <li>{{evenement.typeEvent.typeEvent}}</li>
+            <li>Adresse : {{evenement.lieuEvent.adresse}}</li>
+            <li>Nombre de place total : {{ evenement.lieuEvent.nombrePlaceLieu }}</li>
+        </ul>
+
+        {% if app.user %}
+        {% if app.user.membre.id in membres %}
+            <h2>INFOS AUX MEMBRES</h2>
+            <ul>
+                <li>Temps montage : {{evenement.tempsMontage|date('h:m:s')}}</li>
+                <li>Temps démontage : {{evenement.tempsDemontage|date('h:m:s')}}</li>
+                <li>Temps transport : <ul>
+                    {% for tempsTransport in evenement.lieuEvent.tempsTransports %}        
+                        <li><ul>
+                            {% if tempsTransport.lieu1.adresse == evenement.lieuEvent.adresse %}
+                                <li>Destination : {{tempsTransport.lieu2.adresse}}</li>
+                            {% else %}
+                                <li>Destination : {{tempsTransport.lieu1.adresse}}</li>
+                            {% endif %}
+                            <li>Temps : {{tempsTransport.temps|date('h:m:s')}}</li>
+                        </ul></li>
+                    {% endfor %}
+                </ul></li>
+                
+            </ul>
+        {% endif %}
+        {% endif %}
+        
+
 
 {% endblock %}

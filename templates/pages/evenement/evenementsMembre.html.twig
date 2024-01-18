@@ -2,7 +2,57 @@
 
 {% block body %}
     <h1>Vos evenements</h1>
+    {% if 'ROLE_MEMBRE' in app.user.roles %}
         <div>
+            <h2>En tant que membres :</h2>
+        {% if evenementsMembre is not null %}
+            {% if evenementsMembre is not empty %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom Festival</th>
+                            <th>Nom evenement</th>
+                            <th>date</th>
+                            <th>Heure début</th>
+                            <th>Durée</th>
+                            <th>Type</th>
+                            <th>Adresse</th>
+                            <th>Nombre de place</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for evenement in evenementsMembre %}
+                            <tr>
+                                <td>{{ evenement.festival.nom }}</td>
+                                <td>{{ evenement.nom }}</td>
+                                <td>{{ evenement.dateEv|date('d/m/Y') }}</td>
+                                <td>{{ evenement.heureDebut|date('H:i') }}</td>
+                                <td>{{ evenement.dureeEv|date('H:i') }}</td>
+                                <td>{{ evenement.typeEvent.typeEvent }}</td>
+                                <td>{{ evenement.lieuEvent.adresse }}</td>
+                                <td>{{ evenement.lieuEvent.nombrePlaceLieu }}</td>
+                                <td><a href="{{ path('evenement.show', { id : evenement.id })}}">voir</a></td>
+
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table> 
+            {% else %}
+                <h3>Aucun événement</h3>
+            {% endif %}
+        {% else %}
+            <h3>Aucun événement</h3>
+        {% endif %}
+        </div>
+        
+        
+    {% endif %} 
+    {% if 'ROLE_SPECTATEUR' in app.user.roles %}
+       <div>
+            <h2>En tant que Spectateurs :</h2>
+            {% if evenementsSpectateur is not null %}
+                {% if evenementsSpectateur is not empty %}
+                
             <table>
                 <thead>
                     <tr>
@@ -17,7 +67,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for evenement in evenements %}
+                    {% for evenement in evenementsSpectateur %}
                         <tr>
                             <td>{{ evenement.festival.nom }}</td>
                             <td>{{ evenement.nom }}</td>
@@ -33,6 +83,14 @@
                     {% endfor %}
                 </tbody>
             </table>
-        </div>     
+            {% else %}
+                <h3>Aucun événement</h3>
+            {% endif %}
+        {% else %}
+            <h3>Aucun événement</h3>
+        {% endif %}
+        </div>
+        
+    {% endif %} 
 
 {% endblock %}

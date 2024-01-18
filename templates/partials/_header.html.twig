@@ -3,10 +3,14 @@
         <li><a href="{{ path('home')}}">Home</a></li>
         {% if app.user %}
             {% if 'ROLE_SPECTATEUR' in app.user.roles %}
+                {# <li><a href="{{ path('groupe.show', { id : app.user.id })}}">Groupes</a></li> #}
+                <li><a href="">Groupes</a></li>
+
             {% endif %}
             {% if 'ROLE_MEMBRE' in app.user.roles %}
-                <li><a href="{{ path('participationsMembre', { id : app.user.id })}}">Mes evenements</a></li>
+                
             {% endif %}
+            <li><a href="{{ path('participationsMembre', { id : app.user.id })}}">Mes evenements</a></li>
             {% if 'ROLE_ADMIN' in app.user.roles %}
                 <li><a href="{{ path('admin')}}">Admin</a></li>
             {% endif %}

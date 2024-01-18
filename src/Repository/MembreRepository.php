@@ -56,4 +56,16 @@ class MembreRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function findMembresByGroupe($id): array
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.groupe = :id')
+            ->setParameter('id', $id)
+            ->orderBy('m.nom', 'ASC')
+            ->addOrderBy('m.prenom', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

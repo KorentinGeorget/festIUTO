@@ -92,7 +92,7 @@ class Groupe
     /**
      * @return Collection<int, Hebergement>
      */
-    public function getHebergement(): Collection
+    public function getHebergements(): Collection
     {
         return $this->hebergements;
     }

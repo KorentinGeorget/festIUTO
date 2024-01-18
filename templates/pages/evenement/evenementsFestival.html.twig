@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>Evenements du festival : {{ evenements[0].festival.nom }}</h1>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom evenement</th>
+                        <th>date</th>
+                        <th>Heure début</th>
+                        <th>Durée</th>
+                        <th>Type</th>
+                        <th>Adresse</th>
+                        <th>Nombre de place</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for evenement in evenements %}
+                        <tr>
+                            <td>{{ evenement.nom }}</td>
+                            <td>{{ evenement.dateEv|date('d/m/Y') }}</td>
+                            <td>{{ evenement.heureDebut|date('H:i') }}</td>
+                            <td>{{ evenement.dureeEv|date('H:i') }}</td>
+                            <td>{{ evenement.typeEvent.typeEvent }}</td>
+                            <td>{{ evenement.lieuEvent.adresse }}</td>
+                            <td>{{ evenement.lieuEvent.nombrePlaceLieu }}</td>
+                            <td><a href="{{ path('evenement.show', { id : evenement.id })}}">voir</a></td>
+                            {% if app.user %}
+                                {% if 'ROLE_SPECTATEUR' in app.user.roles %}
+                                     <td><a href="">participer</a></td>
+                                {% else %}
+                                    <td><a disabled>participer</a></td>
+                                {% endif %}
+                            {% endif %}
+                            
+                            
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>     
+
+{% endblock %}

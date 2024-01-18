@@ -15,7 +15,7 @@ class HomeController extends AbstractController
 
 
         return $this->render('pages/home.html.twig', [
-            'festivals' => $festivalRepository->findAll(),
+            'festivals' => $festivalRepository->findAllNonFinished(),
         ]);
     }
 }

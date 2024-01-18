@@ -45,4 +45,15 @@ class FestivalRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findAllNonFinished(): array
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('(f.dateDebut+f.duree) > :date')
+            ->setParameter('date', new \DateTime())
+            ->orderBy('f.dateDebut', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

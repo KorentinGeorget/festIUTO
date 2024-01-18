@@ -46,12 +46,27 @@ class EvenementRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-    public function findEvenementByDate($date): array
+    public function findEvenementsByFestival($id): array
     {
         return $this->createQueryBuilder('e')
-            ->andWhere('e.dateEv > :date')
-            ->setParameter('date', $date)
+            ->andWhere('e.festival = :id')
+            ->setParameter('id', $id)
+            ->orderBy('e.dateEv', 'ASC')
+            ->addOrderBy('e.heureDebut', 'ASC')
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
+    }
+
+    public function findEvenementsByMembre($id): array
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.groupe = :id')
+            ->setParameter('id', $id)
+            ->orderBy('e.dateEv', 'ASC')
+            ->addOrderBy('e.heureDebut', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

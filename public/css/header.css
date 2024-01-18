@@ -1,0 +1,44 @@
+header{
+    width: 100vw;
+    height: 10vh;
+    background-color: rgb(4, 131, 221);
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+
+}
+
+header li{
+    list-style-type: none;
+    min-width: 15vw;
+    height:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header a{
+    font-size: 4vmin;
+    text-decoration: none;
+    color: rgb(255, 187, 0);
+    font-weight:900;
+    text-shadow: 2px 0 1px rgb(123, 123, 123);
+}
+
+header a:hover{
+    font-size:4.2vmin;
+}
+
+header a::after{
+    width: 100px;
+    height:20px;
+    background-color: red;
+}

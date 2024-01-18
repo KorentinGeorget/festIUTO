@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+{{ user.nom }}
+{{ user.prenom }}
+{{ user.email }}
+
+
+{% if 'ROLE_MEMBRE' in app.user.roles %}
+    {% for instrument in membre.instruments %}
+        {{ instrument.nomInstrument }}
+    {% endfor %}
+    <a href="{{ path('instrument.new') }}">Ajouter un nouvelle instrument</a>
+
+    
+    {% if membre.groupe is null %}
+        Demander a un admin de vous ajouter a un groupe
+    {% else %}
+        {{ membre.groupe.nomGroupe }}
+    {% endif %}
+    
+    
+
+{% endif %}
+
+{% if app.user %}
+    <li><a href="{{ path('user.edit', {id : app.user.id })}}">Modifier profil</a></li>
+    <li><a href="{{ path('user.editMotDePasse', {id : app.user.id })}}">Modifier mon mot de passe</a></li>
+{% endif %}
+
+
+{% endblock %}

@@ -16,6 +16,7 @@ use App\Entity\TempsTransport;
 use App\Entity\TypeBillet;
 use App\Entity\TypeEvent;
 use App\Entity\User;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ObjectManager;
@@ -269,7 +270,8 @@ class AppFixtures extends Fixture
             $festival = new Festival();
             $festival->setNom($this->faker->word)
                 ->setDuree(new \DateInterval('P10D'))
-                ->setDescription($this->faker->text);
+                ->setDescription($this->faker->text)
+                ->setDateDebut(DateTimeImmutable::createFromMutable($startDate));
             foreach($evenements as $evenement){
                 $festival->addEvenement($evenement);
             }

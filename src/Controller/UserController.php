@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserPasswordType;
 use App\Form\UserType;
+use App\Repository\MembreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +15,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
+
+    #[Route('/utilisateur/{id}', name: 'user.show')]
+    public function show(User $user, MembreRepository $membre): Response
+    {
+
+        if(in_array('ROLE_MEMBRE', $user->getRoles())){
+            $membres = $membre->findByUser($user);    
+            // dd($membre);    
+        }
+
+
+        return $this->render('pages/user/show.html.twig', [
+            'user' => $user,
+            'membre' => $membres[0] ?? null
+        ]);
+    }
+
     #[Route('/utilisateur/edit/{id}', name: 'user.edit')]
     public function edit(User $user, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher): Response
     {

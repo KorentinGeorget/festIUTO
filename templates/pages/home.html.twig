@@ -13,26 +13,19 @@
         <thead>
             <tr>
                 <th>Nom</th>
-                <th>Date</th>
-                <th>Heure début</th>
+                <th>Description</th>
+                <th>Date début</th>
                 <th>Durée</th>
-                <th>Lieu</th>
-                <th>Type</th>
-                <th>Groupe</th>
-                <th>Payant</th>
             </tr>
         </thead>
         <tbody>
-            {% for evenement in evenements %}
+            {% for festival in festivals %}
                 <tr>
-                    <td>{{ evenement.nom }}</td>
-                    <td>{{ evenement.dateEv|date('d/m/Y') }}</td>
-                    <td>{{ evenement.heureDebut|date('H:i') }}</td>
-                    <td>{{ evenement.dureeEv|date('H:i') }}</td>
-                    <td>{{ evenement.lieuEvent.adresse }}</td>
-                    <td>{{ evenement.typeEvent.typeEvent }}</td>
-                    <td>{{ evenement.groupe.nomGroupe }}</td>
-                    <td>{{ evenement.isPayant ? "Payant" : "Gratuit" }}</td>
+                    <td>{{ festival.nom }}</td>
+                    <td>{{ festival.description }}</td>
+                    <td>{{ festival.dateDebut|date('Y-m-d') }}</td>
+                    <td>{{ festival.duree|date("%m mois et %d jour") }}</td>
+
                 </tr>
             {% endfor %}
         </tbody>

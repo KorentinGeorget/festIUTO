@@ -45,4 +45,15 @@ class MembreRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findByUser($id)
+    {
+        return $this->createQueryBuilder('m')
+            ->join('m.user', 'u')
+            ->andWhere('u.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

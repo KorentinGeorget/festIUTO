@@ -25,7 +25,7 @@ class Membre
     private Collection $instruments;
 
     #[ORM\ManyToOne(inversedBy: 'membres')]
-    private Groupe $groupe;
+    private ?Groupe $groupe = null;
 
     #[ORM\OneToOne(mappedBy: 'membre', cascade: ['persist', 'remove'])]
     private ?User $user = null;

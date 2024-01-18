@@ -1,9 +1,14 @@
 <nav>
     <ul>
         <li><a href="{{ path('home')}}">Home</a></li>
-        <li><a href="{{ path('evenement.index')}}">Evenements</a></li>
-        <li><a href="{{ path('security.registration')}}">Inscription</a></li>
-        <li><a href="{{ path('security.login')}}">Connexion</a></li>
-        <li><a href="{{ path('security.logout')}}">Déconnexion</a></li>
+        {% if app.user %}
+            <li><a href="{{ path('user.show', { id : app.user.id })}}">Profil</a></li>
+            <li><a href="{{ path('security.logout')}}">Déconnexion</a></li>
+        {% else %}
+            <li><a href="{{ path('security.registration')}}">Inscription</a></li>
+            <li><a href="{{ path('security.login')}}">Connexion</a></li>
+        {% endif %}
+        
+        
     </ul>
 </nav>

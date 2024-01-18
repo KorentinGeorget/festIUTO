@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -24,7 +25,7 @@ class RegistrationType extends AbstractType
                 'attr' => [
                     'placeholder' => 'xxx@xxx.com',
                     'minlength' => 2,
-                    'maxlength' => 20,
+                    'maxlength' => 50,
                 ],
                 'label' => 'Votre email',
                 'constraints' => [
@@ -80,7 +81,16 @@ class RegistrationType extends AbstractType
                     ]),
                 ]
             ])
-            ->add
+            ->add('roles', ChoiceType::class, [
+                'label' => 'Choisissez votre rôle',
+                'choices' => [
+                    'Musicien' => 'ROLE_MEMBRE',
+                    'Spectateur' => 'ROLE_SPECTATEUR'
+                ],
+                'multiple' => true,
+                'expanded' => true,
+                'required' => true
+            ])
             ->add('submit', SubmitType::class);
         ;
     }

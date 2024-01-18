@@ -28,6 +28,9 @@ class Festival
     #[ORM\OneToMany(mappedBy: 'festival', targetEntity: Evenement::class)]
     private Collection $evenements;
 
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    private ?\DateTimeImmutable $dateDebut = null;
+
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
@@ -103,4 +106,17 @@ class Festival
 
         return $this;
     }
+
+    public function getDateDebut(): ?\DateTimeImmutable
+    {
+        return $this->dateDebut;
+    }
+
+    public function setDateDebut(\DateTimeImmutable $dateDebut): static
+    {
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
 }

@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}FestIUTO - Connexion{% endblock %}
-
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/login.css') }}">{% endblock %}
 {% block body %}
+
     <div class="container">
 		<h1>Formulaire de connnexion</h1>
 
@@ -24,7 +25,7 @@
 			<div class="form-group">
 				<label for="username">Adresse email</label>
 				<input type="email" id="username" name="_username" placeholder="exemple@symrecipe.fr" value={{ last_username }}>
-				<small id="emailHelp">We'll never share your email with anyone else.</small>
+				<p id="emailHelp">We'll never share your email with anyone else.</p>
 			</div>
 			<div class="form-group">
 				<label for="password">Mot de passe</label>
@@ -32,6 +33,7 @@
 			</div>
 
 			<button type="submit">
+				<div> </div>
 				Se connecter
 			</button>
 		</form>

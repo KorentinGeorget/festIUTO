@@ -28,7 +28,8 @@ class UserController extends AbstractController
 
         return $this->render('pages/user/show.html.twig', [
             'user' => $user,
-            'membre' => $membres[0] ?? null
+            'membre' => $membres[0] ?? null,
+            'groupeFavoris' => $user->getSpectateur()->getGroupeFavoris()
         ]);
     }
 

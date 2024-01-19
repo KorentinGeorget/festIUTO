@@ -83,4 +83,17 @@ class EvenementRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findEvenementWhereGroupeFavoris($id): array
+    {
+        return $this->createQueryBuilder('e')
+            ->join('e.groupe', 'g')
+            ->andWhere('g.id in (:id)')
+            ->setParameter('id', $id)
+            ->orderBy('e.dateEv', 'ASC')
+            ->addOrderBy('e.heureDebut', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 }

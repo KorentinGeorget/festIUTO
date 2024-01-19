@@ -33,4 +33,50 @@
         </tbody>
     </table>
 </div>
+
+{% if app.user %}
+    {% if app.user.spectateur.groupeFavoris is not empty %}
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom evenement</th>
+                    <th>date</th>
+                    <th>Heure début</th>
+                    <th>Durée</th>
+                    <th>Type</th>
+                    <th>Adresse</th>
+                    <th>Groupe</th>
+                    <th>Nombre de place</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for evenement in evenementsGroupeFavoris %}
+                    <tr>
+                        <td>{{ evenement.nom }}</td>
+                        <td>{{ evenement.dateEv|date('d/m/Y') }}</td>
+                        <td>{{ evenement.heureDebut|date('H:i') }}</td>
+                        <td>{{ evenement.dureeEv|date('H:i') }}</td>
+                        <td>{{ evenement.typeEvent.typeEvent }}</td>
+                        <td>{{ evenement.lieuEvent.adresse }}</td>
+                        <td>{{evenement.groupe.nomGroupe}}</td>
+                        <td>{{ evenement.lieuEvent.nombrePlaceLieu }}</td>
+                        <td><a href="{{ path('evenement.show', { id : evenement.id })}}">voir</a></td>
+                        {% if app.user %}
+                            {% if 'ROLE_SPECTATEUR' in app.user.roles %}
+                                    <td><a href="{{ path('evenement.participe', {id : evenement.id} )}}">participer</a></td>
+                            {% else %}
+                                <td><a disabled>participer</a></td>
+                            {% endif %}
+                        {% endif %}
+                        {% if app.user.spectateur in evenement.spectateurs %}
+                            <td><img src="" alt="">test</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+{% endif %}
 {% endblock %}

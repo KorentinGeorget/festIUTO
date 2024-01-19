@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>Groupes :</h1>
+
+    {% for message in app.flashes('success') %}
+        <div>
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('warning') %}
+        <div>
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <ul>
+        {% for groupe in groupes %}  
+            <li>
+                <ul>
+                    <li>Nom : {{groupe.nomGroupe}}</li>
+                    <li>Style : <ul>
+                        {% for style in groupe.styles %}
+                            <li>{{style.nomStyle}}</li>
+                        {% endfor %}
+                    </ul> </li>
+                    <li>Membres : <ul>
+                        {% for membre in groupe.membres %}
+                            <li>{{membre.nom}} {{membre.prenom}} joue :<ul>
+                                {% for instrument in membre.instruments %}
+                                    <li>{{instrument.nomInstrument}}</li>
+                                {% endfor %}
+                            </ul></li>
+                        {% endfor %}
+                    </ul></li>
+                </ul>
+            </li>
+            <li><a href="{{ path('groupe.ajouterFavoris', { id : groupe.id })}}">Ajouter aux favoris</a></li>
+            {% if app.user.spectateur in groupe.spectateursFavoris %}
+            <li><img src="" alt="">test</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endblock %}

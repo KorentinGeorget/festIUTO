@@ -42,8 +42,10 @@
                                     <td><a disabled>participer</a></td>
                                 {% endif %}
                             {% endif %}
-                            {% if app.user.spectateur in evenement.spectateurs %}
-                                <td><img src="" alt="">test</td>
+                            {% if app.user %}
+                                {% if app.user.spectateur in evenement.spectateurs %}
+                                    <td><img src="" alt="">test</td>
+                                {% endif %}
                             {% endif %}
                             
                             

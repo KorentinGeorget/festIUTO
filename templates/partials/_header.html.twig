@@ -4,9 +4,7 @@
             <li><a href="{{ path('home')}}">Home</a></li>
             {% if app.user %}
                 {% if 'ROLE_SPECTATEUR' in app.user.roles %}
-                    {# <li><a href="{{ path('groupe.show', { id : app.user.id })}}">Groupes</a></li> #}
-                    <li><a href="">Groupes</a></li>
-
+                    <li><a href="{{ path('groupe.index')}}">Groupes</a></li>
                 {% endif %}
                 {% if 'ROLE_MEMBRE' in app.user.roles %}
                     

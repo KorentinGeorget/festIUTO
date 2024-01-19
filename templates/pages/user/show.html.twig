@@ -2,6 +2,20 @@
 
 {% block body %}
 
+    {% for message in app.flashes('success') %}
+        <div>
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('warning') %}
+        <div>
+            {{ message }}
+        </div>
+    {% endfor %}
+
+<h2>Profil</h2>
+
 <ul>
 <li>Nom : {{ user.nom }}</li>
 <li>Prénom : {{ user.prenom }}</li>
@@ -39,10 +53,39 @@
         {% endif %}
     {% endif %}
     <li>Demander a un admin pour avoir acces a un hebergement</li>
-    
 </ul>
+{% endif %}
+
+{% if 'ROLE_SPECTATEUR' in app.user.roles %}
+
+    <h2>Groupe favoris :</h2>
+    <ul>
+        {% for groupe in groupeFavoris %}  
+            <li>
+                <ul>
+                    <li>Nom : {{groupe.nomGroupe}}</li>
+                    <li>Style : <ul>
+                        {% for style in groupe.styles %}
+                            <li>{{style.nomStyle}}</li>
+                        {% endfor %}
+                    </ul> </li>
+                    <li>Membres : <ul>
+                        {% for membre in groupe.membres %}
+                            <li>{{membre.nom}} {{membre.prenom}} joue :<ul>
+                                {% for instrument in membre.instruments %}
+                                    <li>{{instrument.nomInstrument}}</li>
+                                {% endfor %}
+                            </ul></li>
+                        {% endfor %}
+                    </ul></li>
+                </ul>
+            </li>
+            <li><a href="{{ path('groupe.enleverFavoris', { id : groupe.id })}}">Retirer des favoris</a></li>
+        {% endfor %}
+    </ul>
 
 {% endif %}
+
 
 {% if app.user %}
     <li><a href="{{ path('user.edit', {id : app.user.id })}}">Modifier profil</a></li>

@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EvenementController extends AbstractController
 {
-    #[Route('/evenementsMembre/{id}', name: 'participationsMembre')]
+    #[Route('/evenement/Membre/{id}', name: 'participationsMembre')]
     public function participationsMembre(EvenementRepository $evenementRepository): Response
     {
         if($this->getUser()->getMembre() == null){
@@ -37,7 +37,7 @@ class EvenementController extends AbstractController
     }
     
 
-    #[Route('/evenementsFestival/{id}', name: 'evenementsFestival')]
+    #[Route('/evenement/Festival/{id}', name: 'evenementsFestival')]
     public function evenementsFestival(Festival $festival,EvenementRepository $evenementRepository): Response
     {
         return $this->render('pages/evenement/evenementsFestival.html.twig', [

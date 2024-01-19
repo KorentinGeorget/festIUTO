@@ -2,81 +2,62 @@
 
 {% block body %}
 
+{% block stylesheets%}
+        <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
 {% for message in app.flashes('success') %}
     <div>
         {{ message }}
     </div>
 {% endfor %}
 
-<div>
-    <table>
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Date début</th>
-                <th>Durée</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for festival in festivals %}
-                <tr>
-                    <td>{{ festival.nom }}</td>
-                    <td>{{ festival.description }}</td>
-                    <td>{{ festival.dateDebut|date('Y-m-d') }}</td>
-                    <td>{{ festival.duree|date("%m mois et %d jour") }}</td>
-                    <td><a href="{{ path('evenementsFestival', {id : festival.id })}}">voir</a></td>
-
-
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+<section>
+    <div class = "informationFestival">
+        <p>Nom du festival</p>
+        <p>Description</p>
+        <p>date</p>
+        <p>durée</p>
+    </div>
+    {% for festival in festivals %}
+        <div class="wrapper">
+            <div>{{ festival.nom }}</div>
+            <div>{{ festival.description }}</div>
+            <div>{{ festival.dateDebut|date('Y-m-d') }}</div>
+            <div>{{ festival.duree|date("%m mois et %d jours") }}</div>
+            <div><a href="{{ path('evenementsFestival', {id : festival.id })}}">voir</a></div>
+        </div>
+    {% endfor %}
+</section>
 
 {% if app.user %}
     {% if app.user.spectateur.groupeFavoris is not empty %}
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nom evenement</th>
-                    <th>date</th>
-                    <th>Heure début</th>
-                    <th>Durée</th>
-                    <th>Type</th>
-                    <th>Adresse</th>
-                    <th>Groupe</th>
-                    <th>Nombre de place</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for evenement in evenementsGroupeFavoris %}
-                    <tr>
-                        <td>{{ evenement.nom }}</td>
-                        <td>{{ evenement.dateEv|date('d/m/Y') }}</td>
-                        <td>{{ evenement.heureDebut|date('H:i') }}</td>
-                        <td>{{ evenement.dureeEv|date('H:i') }}</td>
-                        <td>{{ evenement.typeEvent.typeEvent }}</td>
-                        <td>{{ evenement.lieuEvent.adresse }}</td>
-                        <td>{{evenement.groupe.nomGroupe}}</td>
-                        <td>{{ evenement.lieuEvent.nombrePlaceLieu }}</td>
-                        <td><a href="{{ path('evenement.show', { id : evenement.id })}}">voir</a></td>
-                        {% if app.user %}
-                            {% if 'ROLE_SPECTATEUR' in app.user.roles %}
-                                    <td><a href="{{ path('evenement.participe', {id : evenement.id} )}}">participer</a></td>
-                            {% else %}
-                                <td><a disabled>participer</a></td>
-                            {% endif %}
+        <div class="infoFavoris">
+            
+            {% for evenement in evenementsGroupeFavoris %}
+                <div class="wrapperFavoris">
+                    <div>{{ evenement.nom }}</div>
+                    <div>{{ evenement.dateEv|date('d/m/Y') }}</div>
+                    <div>{{ evenement.heureDebut|date('H:i') }}</div>
+                    <div>{{ evenement.dureeEv|date('H:i') }}</div>
+                    <div>{{ evenement.typeEvent.typeEvent }}</div>
+                    <div>{{ evenement.lieuEvent.adresse }}</div>
+                    <div>{{evenement.groupe.nomGroupe}}</div>
+                    <div>{{ evenement.lieuEvent.nombrePlaceLieu }}</div>
+                    <div><a href="{{ path('evenement.show', { id : evenement.id })}}">voir</a></div>
+                    {% if app.user %}
+                        {% if 'ROLE_SPECTATEUR' in app.user.roles %}
+                                <div><a href="{{ path('evenement.participe', {id : evenement.id} )}}">participer</a></div>
+                        {% else %}
+                            <div><a disabled>participer</a></div>
                         {% endif %}
-                        {% if app.user.spectateur in evenement.spectateurs %}
-                            <td><img src="" alt="">test</td>
-                        {% endif %}
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                    {% endif %}
+                    {% if app.user.spectateur in evenement.spectateurs %}
+                        <div><img src="{{asset('images/ticketConcert.png')}}" alt="" class="imgTicket"></div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
     {% endif %}
 {% endif %}
 {% endblock %}

@@ -91,7 +91,11 @@ class RegistrationType extends AbstractType
                 'expanded' => true,
                 'required' => true
             ])
-            ->add('submit', SubmitType::class);
+            ->add('submit', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btnSubmit'
+                ]
+            ]);
         ;
     }
 

@@ -1,0 +1,72 @@
+.carteGroupe{
+    display: flex;
+    flex-direction: column;
+    padding:1em;
+    background-color: rgb(5, 156, 215);
+    border: solid rgb(0, 69, 79) 6px;
+    color: #fed7b3;
+    font-size:150%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 3em;
+    height: fit-content;
+}
+li , ul{
+    margin:0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.wrapperGroupe{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap:1em;
+    padding: 2em;
+}
+
+.wrapperGroupe > li{
+    flex-basis: 45%;
+    flex-grow: 1;
+}
+
+.imgTicket{
+    width:50px;
+    height:50px;
+}
+
+.carteGroupe > ul{
+    display: flex;
+    gap: 1em;
+}
+
+.carteGroupe > ul > li:nth-child(1){
+    flex-basis: 30%;
+}
+
+
+.carteGroupe > ul > li:nth-child(2){
+    flex-basis: 60%;
+}
+.carteGroupe > ul > li:nth-child(3){
+    flex-basis: 10%;
+}
+
+
+.carteGroupe  p {
+    font-size: 120%;
+    margin-bottom: 1em;
+    color: #feac5f;
+    text-shadow: 2px 0px 1px #ffbc7e;
+}
+
+.instrument {
+    color: #ffefe0;
+
+}
+
+h1{
+    font-size: 250%;
+    color: #feac5f;
+    margin-top: 2em;
+    margin-left: 2em;
+}

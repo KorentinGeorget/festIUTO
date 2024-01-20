@@ -1,5 +1,11 @@
 {% extends "base.html.twig" %}
 
+
+
+{% block stylesheets%}
+        <link rel="stylesheet" href="{{ asset('css/showEvenement.css') }}">
+{% endblock %}
+
 {% block body %}
     <h1>Evenement : {{ evenement.nom }}</h1>
 
@@ -9,33 +15,43 @@
 			</div>
 		{% endfor %}
 
-    <h2>INFOS</h2>
+    
         <ul>
-            <li>Date : {{evenement.dateEv|date('Y:M:d')}}</li>
-            <li>Heure début : {{evenement.heureDebut|date('h:m')}}</li>
-            <li>Durée : {{evenement.dureeEv|date('h:m')}}</li>
-            <li>Groupe : 
+            <li class="carteInfo"> 
+                <h2>INFOS</h2>
+                <div>Date : {{evenement.dateEv|date('Y:M:d')}}</div>
+                <div>Heure début : {{evenement.heureDebut|date('h:m')}}</div>
+                <div>Durée : {{evenement.dureeEv|date('h:m')}}</div>
+                <div>{{evenement.typeEvent.typeEvent}}</div>
+                <div>Adresse : {{evenement.lieuEvent.adresse}}</div>
+                <div>Nombre de place total : {{ evenement.lieuEvent.nombrePlaceLieu }}</div>
+            </li>
+            <li class="carteGroupe">
+                <p>Groupe : {{evenement.groupe.nomGroupe}}</p>
                 <ul>
-                    <li>Nom : {{evenement.groupe.nomGroupe}}</li>
-                    <li>Style : <ul>
-                        {% for style in evenement.groupe.styles %}
-                            <li>{{style.nomStyle}}</li>
-                        {% endfor %}
-                    </ul> </li>
-                    <li>Membres : <ul>
-                        {% for membre in evenement.groupe.membres %}
-                            <li>{{membre.nom}} {{membre.prenom}} joue :<ul>
-                                {% for instrument in membre.instruments %}
-                                    <li>{{instrument.nomInstrument}}</li>
-                                {% endfor %}
-                            </ul></li>
-                        {% endfor %}
-                    </ul></li>
+                    <li>
+                        <p>Style :</p> 
+                        <ul>
+                            {% for style in evenement.groupe.styles %}
+                                <li>{{style.nomStyle}}</li>
+                            {% endfor %}
+                        </ul> 
+                    </li>
+                    <li>
+                        <p>Membres :</p> 
+                        <ul>
+                            {% for membre in evenement.groupe.membres %}
+                                <li>{{membre.nom}} {{membre.prenom}} joue :<ul>
+                                    {% for instrument in membre.instruments %}
+                                        <li> -{{instrument.nomInstrument}}</li>
+                                    {% endfor %}
+                                </ul></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
                 </ul>
             </li>
-            <li>{{evenement.typeEvent.typeEvent}}</li>
-            <li>Adresse : {{evenement.lieuEvent.adresse}}</li>
-            <li>Nombre de place total : {{ evenement.lieuEvent.nombrePlaceLieu }}</li>
+           
         </ul>
 
         {% if app.user %}

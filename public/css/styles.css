@@ -1,9 +1,8 @@
 *{
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
-.example-wrapper{
-    background-color: red;
+*:not(li,ul){
+    margin: 0;
+    padding: 0;
 }

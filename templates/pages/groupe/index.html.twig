@@ -36,9 +36,19 @@
                     </ul></li>
                 </ul>
             </li>
+            {% if app.user %}
+            {% if app.user.spectateur %}
             <li><a href="{{ path('groupe.ajouterFavoris', { id : groupe.id })}}">Ajouter aux favoris</a></li>
+            {% endif %}
+            {% endif %}
+            <br>
+            <br>
+            {% if app.user %}
+            {% if app.user.spectateur %}
             {% if app.user.spectateur in groupe.spectateursFavoris %}
             <li><img src="" alt="">test</li>
+            {% endif %}
+            {% endif %}
             {% endif %}
         {% endfor %}
     </ul>

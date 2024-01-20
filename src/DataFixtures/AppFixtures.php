@@ -69,7 +69,7 @@ class AppFixtures extends Fixture
         // Exemple de jeu de données pour PossedeBillet
 
         $spectateurs = new ArrayCollection();
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 80; $i++) {
             $spectateur = new Spectateur();
             $spectateur->setPrenom($this->faker->firstName)
                 ->setNom($this->faker->lastName);
@@ -164,7 +164,7 @@ class AppFixtures extends Fixture
         // Exemple de jeu de données pour Membres
 
         $membres = new ArrayCollection();
-        for($i = 0; $i < 20; $i++){
+        for($i = 0; $i < 80; $i++){
             $membre = new Membre();
             $membre->setNom($this->faker->lastName)
                 ->setPrenom($this->faker->firstName);
@@ -221,7 +221,7 @@ class AppFixtures extends Fixture
         // Exemple de jeu de données pour Groupe
 
         $groupes = new ArrayCollection();
-        for($i = 0; $i < 4; $i++){
+        for($i = 0; $i < 20; $i++){
             $groupe = new Groupe();
             $groupe->setNomGroupe($this->faker->word);
             // Exemple de jeu de données pour groupe possede un/des hebergement(s)
@@ -304,7 +304,6 @@ class AppFixtures extends Fixture
                 ->setNom($this->faker->lastName)
                 ->setPrenom($this->faker->firstName)
                 ->setPlainPassword('admin');
-
             $manager->persist($user);
         }
 

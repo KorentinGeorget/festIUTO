@@ -44,7 +44,7 @@
                             {% endif %}
                             {% if app.user %}
                                 {% if app.user.spectateur in evenement.spectateurs %}
-                                    <td><img src="" alt="">test</td>
+                                    <div><img src="{{asset('images/ticketConcert.png')}}" alt="" class="imgTicket"></div>
                                 {% endif %}
                             {% endif %}
                             

@@ -25,11 +25,16 @@ class UserController extends AbstractController
             // dd($membre);    
         }
 
+        if($user->getSpectateur()){
+            $groupeFavoris = $user->getSpectateur()->getGroupeFavoris();
+        } else {
+            $groupeFavoris = null;
+        }
 
         return $this->render('pages/user/show.html.twig', [
             'user' => $user,
             'membre' => $membres[0] ?? null,
-            'groupeFavoris' => $user->getSpectateur()->getGroupeFavoris()
+            'groupeFavoris' => $groupeFavoris
         ]);
     }
 

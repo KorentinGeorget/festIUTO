@@ -21,6 +21,7 @@
 <li>Prénom : {{ user.prenom }}</li>
 <li>Email : {{ user.email }}</li>
 
+{% if app.user %}
 
 {% if 'ROLE_MEMBRE' in app.user.roles %}
     <ul>
@@ -56,6 +57,7 @@
 </ul>
 {% endif %}
 
+
 {% if 'ROLE_SPECTATEUR' in app.user.roles %}
 
     <h2>Groupe favoris :</h2>
@@ -86,8 +88,6 @@
 
 {% endif %}
 
-
-{% if app.user %}
     <li><a href="{{ path('user.edit', {id : app.user.id })}}">Modifier profil</a></li>
     <li><a href="{{ path('user.editMotDePasse', {id : app.user.id })}}">Modifier mon mot de passe</a></li>
 {% endif %}

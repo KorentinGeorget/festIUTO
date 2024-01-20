@@ -39,6 +39,8 @@
         </ul>
 
         {% if app.user %}
+        {% if app.user.membre is not null %}
+        
         {% if app.user.membre.id in membres %}
             <h2>INFOS AUX MEMBRES</h2>
             <ul>
@@ -58,6 +60,7 @@
                 </ul></li>
                 
             </ul>
+        {% endif %}
         {% endif %}
         {% endif %}
         

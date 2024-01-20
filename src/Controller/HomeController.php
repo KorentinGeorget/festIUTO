@@ -14,8 +14,13 @@ class HomeController extends AbstractController
     public function index(FestivalRepository $festivalRepository, EvenementRepository $evenementRepository): Response
     {
         if($this->getUser()){
-            $evenementsGroupeFavoris  = $evenementRepository->findEvenementWhereGroupeFavoris($this->getUser()->getSpectateur()->getGroupeFavoris());
-        } else {
+            if($this->getUser()->getSpectateur()){
+                $evenementsGroupeFavoris  = $evenementRepository->findEvenementWhereGroupeFavoris($this->getUser()->getSpectateur()->getGroupeFavoris());
+            } 
+            else {
+                $evenementsGroupeFavoris = null;
+            } 
+        }else {
             $evenementsGroupeFavoris = null;
         }
 

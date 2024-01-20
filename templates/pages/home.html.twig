@@ -31,6 +31,8 @@
 </section>
 
 {% if app.user %}
+    {% if app.user.spectateur %}
+    
     {% if app.user.spectateur.groupeFavoris is not empty %}
         <div class="infoFavoris">
             
@@ -45,12 +47,10 @@
                     <div>{{evenement.groupe.nomGroupe}}</div>
                     <div>{{ evenement.lieuEvent.nombrePlaceLieu }}</div>
                     <div><a href="{{ path('evenement.show', { id : evenement.id })}}">voir</a></div>
-                    {% if app.user %}
-                        {% if 'ROLE_SPECTATEUR' in app.user.roles %}
-                                <div><a href="{{ path('evenement.participe', {id : evenement.id} )}}">participer</a></div>
-                        {% else %}
-                            <div><a disabled>participer</a></div>
-                        {% endif %}
+                    {% if 'ROLE_SPECTATEUR' in app.user.roles %}
+                            <div><a href="{{ path('evenement.participe', {id : evenement.id} )}}">participer</a></div>
+                    {% else %}
+                        <div><a disabled>participer</a></div>
                     {% endif %}
                     {% if app.user.spectateur in evenement.spectateurs %}
                         <div><img src="{{asset('images/ticketConcert.png')}}" alt="" class="imgTicket"></div>
@@ -58,6 +58,7 @@
                 </div>
             {% endfor %}
         </div>
+    {% endif %}
     {% endif %}
 {% endif %}
 {% endblock %}

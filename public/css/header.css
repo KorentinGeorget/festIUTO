@@ -1,11 +1,15 @@
 header{
     width: 100vw;
-    height: 10vh;
-    background-color: rgb(4, 131, 221);
+    height: 12vh;
+    background-color: rgb(5, 156, 215);
 
     display:flex;
     justify-content: center;
     align-items: center;
+
+    border-bottom: solid rgb(0, 69, 79) 12px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    
 }
 
 header ul{
@@ -28,9 +32,10 @@ header li{
 header a{
     font-size: 3.3vmin;
     text-decoration: none;
-    color: rgb(255, 187, 0);
+    color: rgb(255, 149, 0);
     font-weight:900;
-    text-shadow: 2px 0 1px rgb(123, 123, 123);
+    text-shadow: 0px 0 3px rgb(0, 0, 0);
+
 }
 
 header a:hover{

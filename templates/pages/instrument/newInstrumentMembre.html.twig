@@ -1,5 +1,10 @@
 {% extends "base.html.twig" %}
-
+{% block stylesheets%}  
+<link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
 {% block body %}
-    {{form(form)}}
+    <div class="container">
+        <h1>Edition du profil</h1>
+        {{form(form)}}
+    </div>
 {% endblock %}

@@ -75,12 +75,19 @@ main  h2{
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     
 }
-li:not(main > ul:nth-child(1) > ul li ){
+.wrapperGroupe li{
+    font-size: 70%;
+}
+
+li:not(main > ul:nth-child(1) > ul > li, .wrapperGroupe li ){
     color: #ffcc9d;
     font-size:130%;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.wrapperGroupe li{
+    font-size: 110%;
+}
 
 .btnModif{
     color: #ffb167;;

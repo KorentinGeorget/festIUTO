@@ -1,5 +1,9 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets%}
+        <link rel="stylesheet" href="{{ asset('css/profil.css') }}">
+{% endblock %}
+
 {% block body %}
 
     {% for message in app.flashes('success') %}
@@ -17,80 +21,87 @@
 <h2>Profil</h2>
 
 <ul>
-<li>Nom : {{ user.nom }}</li>
-<li>Prénom : {{ user.prenom }}</li>
-<li>Email : {{ user.email }}</li>
+    
+    <li>Nom : {{ user.nom }}</li>
+    <li>Prénom : {{ user.prenom }}</li>
+    <li>Email : {{ user.email }}</li>
+    <li class="wrapperModif"><a class="btnModif" href="{{ path('user.edit', {id : app.user.id })}}">Modifier profil</a></li>
+    <li class="wrapperModif"><a class="btnModif" href="{{ path('user.editMotDePasse', {id : app.user.id })}}">Modifier mon mot de passe</a></li>
+    {% if app.user %}
 
-{% if app.user %}
+        {% if 'ROLE_MEMBRE' in app.user.roles %}
+            <li> 
+                <ul>
+                {% for instrument in membre.instruments %}
+                    <li>{{ instrument.nomInstrument }}</li>
+                {% endfor %}
+                </ul>
+            </li>
+            <li class="wrapperModif"><a class="btnModif" href="{{ path('instrument.new') }}">Ajouter un nouvelle instrument</a></li>
 
-{% if 'ROLE_MEMBRE' in app.user.roles %}
-    <ul>
-    {% for instrument in membre.instruments %}
-        <li>{{ instrument.nomInstrument }}</li>
-    {% endfor %}
-    </ul>
-    <li><a href="{{ path('instrument.new') }}">Ajouter un nouvelle instrument</a></li>
+            {% if membre.groupe is null %}
+                <li>Demander a un admin de vous ajouter a un groupe</li>
+            {% else %}
+                <li>Nom du groupe : {{ membre.groupe.nomGroupe }}</li>
+            {% endif %}
 
-    {% if membre.groupe is null %}
-        <li>Demander a un admin de vous ajouter a un groupe</li>
-    {% else %}
-        <li>Nom du groupe : {{ membre.groupe.nomGroupe }}</li>
-    {% endif %}
-
-    {% if membre.groupe is null %}
-        <li>Pas d'hebergement pour le moment</li>
-    {% else %}
-        {% if membre.groupe.hebergements is empty %}
-        <li>Pas d'hebergement pour le moment</li>
-        {% else %}
-            <li>Hebergement : </li>
-            <ul>
-            {% for hebergement in membre.groupe.hebergements %}
-                <li>Nom : {{ hebergement.nomHebergement }}</li>
-                <li>Adresse : {{ hebergement.adresse }}</li>
-                <li>Place : {{ hebergement.nbPlaceHebergement }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    {% endif %}
+            {% if membre.groupe is null %}
+                <li>Pas d'hebergement pour le moment</li>
+            {% else %}
+                {% if membre.groupe.hebergements is empty %}
+                <li>Pas d'hebergement pour le moment</li>
+                {% else %}
+                    <li>Hebergement : </li>
+                    <ul>
+                    {% for hebergement in membre.groupe.hebergements %}
+                        <li>Nom : {{ hebergement.nomHebergement }}</li>
+                        <li>Adresse : {{ hebergement.adresse }}</li>
+                        <li>Place : {{ hebergement.nbPlaceHebergement }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endif %}
     <li>Demander a un admin pour avoir acces a un hebergement</li>
 </ul>
-{% endif %}
+    {% endif %}
 
 
 {% if 'ROLE_SPECTATEUR' in app.user.roles %}
 
     <h2>Groupe favoris :</h2>
-    <ul>
+    <ul class="wrapperGroupe">
         {% for groupe in groupeFavoris %}  
-            <li>
+            <li class="carteGroupe">
+                <p>Groupe : {{groupe.nomGroupe}}</p>
                 <ul>
-                    <li>Nom : {{groupe.nomGroupe}}</li>
-                    <li>Style : <ul>
-                        {% for style in groupe.styles %}
-                            <li>{{style.nomStyle}}</li>
-                        {% endfor %}
-                    </ul> </li>
-                    <li>Membres : <ul>
-                        {% for membre in groupe.membres %}
-                            <li>{{membre.nom}} {{membre.prenom}} joue :<ul>
-                                {% for instrument in membre.instruments %}
-                                    <li>{{instrument.nomInstrument}}</li>
-                                {% endfor %}
-                            </ul></li>
-                        {% endfor %}
-                    </ul></li>
+                    <li>
+                        <p>Style</p> 
+                        <ul>
+                            {% for style in groupe.styles %}
+                                <li>{{style.nomStyle}}</li>
+                            {% endfor %}
+                        </ul> 
+                    </li>
+                    <li>
+                        <p>Membres</p> 
+                        <ul>
+                            {% for membre in groupe.membres %}
+                                <li>{{membre.nom}} {{membre.prenom}} joue :<ul>
+                                    {% for instrument in membre.instruments %}
+                                        <li> -{{instrument.nomInstrument}}</li>
+                                    {% endfor %}
+                                </ul></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
                 </ul>
+                <div><a href="{{ path('groupe.enleverFavoris', { id : groupe.id })}}" class="btnFavoris">Retirer des favoris</a></div>
             </li>
-            <li><a href="{{ path('groupe.enleverFavoris', { id : groupe.id })}}">Retirer des favoris</a></li>
         {% endfor %}
     </ul>
 
 {% endif %}
 
-    <li><a href="{{ path('user.edit', {id : app.user.id })}}">Modifier profil</a></li>
-    <li><a href="{{ path('user.editMotDePasse', {id : app.user.id })}}">Modifier mon mot de passe</a></li>
 {% endif %}
-
 
 {% endblock %}

@@ -1,0 +1,105 @@
+li, ul{
+    margin:0;
+    padding: 0;
+}
+
+.carteGroupe{
+    display: flex;
+    flex-direction: column;
+    max-width: 45vw;
+    padding:1em;
+    background-color: rgb(5, 156, 215);
+    border: solid rgb(0, 69, 79) 6px;
+    color: #ffdbb9;
+    font-size:150%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 3em;
+    height: fit-content;
+    flex-grow: 1;
+
+}
+li , ul{
+    margin:0;
+    padding: 0;
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+
+}
+.wrapperGroupe{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2em;
+    margin-top: 1em;
+
+}
+
+.carteGroupe > ul{
+    display: flex;
+}
+
+.carteGroupe > ul > li:nth-child(1){
+    flex-basis: 30%;
+}
+
+
+.carteGroupe > ul > li:nth-child(2){
+    flex-basis: 70%;
+}
+
+.carteGroupe  p {
+    font-size: 120%;
+    margin-bottom: 1em;
+    color: #ffb167;
+    text-shadow: 2px 0px 1px #ffbc7e;
+}
+
+
+h1{
+    color: #ffdbb9;
+    font-size:200%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin-left:-1em;
+    margin-top:1em;
+}
+main{
+    margin-left:2em;
+    margin-top: 3em;
+}
+
+main  h2{
+    color: #f5ac68;
+    font-size:240%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    
+}
+li:not(main > ul:nth-child(1) > ul li ){
+    color: #ffcc9d;
+    font-size:130%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+.btnModif{
+    color: #ffb167;;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 120%;
+    background-color: #00b3ff;
+    border-radius: 3em;
+    padding: .2em;
+    margin-top: 1em;
+    border: solid rgb(0, 69, 79) thick;
+    text-shadow: 2px 0 2px rgb(255, 131, 37)
+
+}
+
+.wrapperModif{
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+}
+
+.btnModif:hover{    
+    font-size: 130%;
+}

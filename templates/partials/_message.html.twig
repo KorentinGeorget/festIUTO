@@ -1,11 +1,11 @@
 {% for message in app.flashes('success') %}
-    <div>
+    <div class="messageBon">
         {{ message }}
     </div>
 {% endfor %}
 
 {% for message in app.flashes('warning') %}
-    <div>
+    <div class="messageMauvais">
         {{ message }}
     </div>
 {% endfor %}

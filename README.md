@@ -59,6 +59,8 @@ Une fois tout configuré, lancez le serveur Symfony:
 - Menu admin
 - Routes sécurisées
 
+Note : Nous avions également prévu d'implémenter une fonctionnalité de billetterie. Actuellement, nous vérifions certains champs pour l'inscription à un événement, tels que sa disponibilité au public ou la disponibilité des places. Cependant, la vérification d'un billet pour des événements payants n'a pas encore été mise en œuvre. Malheureusement, nous n'avons pas pu maîtriser l'utilisation de DateInterval sur Symfony à temps pour inclure cette fonctionnalité.
+
 ### Informations supplémentaires
 Pour faciliter vos tests, dans le jeu de données, il y a 3 utilisateurs déjà créés :
 - Administrateur : admin@gmail.com et `password`
@@ -66,3 +68,5 @@ Pour faciliter vos tests, dans le jeu de données, il y a 3 utilisateurs déjà 
 - Membre : membre@gmail.com et `password`
 
 `password` est le mot de passe.
+
+

@@ -17,12 +17,12 @@
                 <div class="wrapperFavoris wrapper">
                         <h2>{{ evenement.festival.nom }}</h2>
                         <h2>{{ evenement.nom }}</h2>
-                        <div>{{ evenement.dateEv|date('d/m/Y') }}</div>
+                        <div>Date : {{ evenement.dateEv|date('d/m/Y') }}</div>
                         <div>Heure de début : {{ evenement.heureDebut|date('H:i') }}h</div>
-                        <div>Durée {{ evenement.dureeEv|date('H:i') }}h</div>
+                        <div>Durée : {{ evenement.dureeEv|date('H:i') }}h</div>
                         <div>{{ evenement.typeEvent.typeEvent }} au {{ evenement.lieuEvent.adresse }}</div>
                         <div></div>
-                        <div>{{ evenement.lieuEvent.nombrePlaceLieu }}</div>
+                        <div>{{ evenement.lieuEvent.nombrePlaceLieu }} places</div>
                         <div><a href="{{ path('evenement.show', { id : evenement.id })}}">voir</a></div>
                     </div>
                     
@@ -47,10 +47,11 @@
                 
                     {% for evenement in evenementsSpectateur %}
                         <div class="wrapperFavoris wrapper">
+                            <h2>{{ evenement.festival.nom }}</h2>
                             <h2>{{ evenement.nom }}</h2>
-                            <div>{{ evenement.dateEv|date('d/m/Y') }}</div>
+                            <div>Date : {{ evenement.dateEv|date('d/m/Y') }}</div>
                             <div>Heure de début : {{ evenement.heureDebut|date('H:i') }}h</div>
-                            <div>Durée {{ evenement.dureeEv|date('H:i') }}h</div>
+                            <div>Durée : {{ evenement.dureeEv|date('H:i') }}h</div>
                             <div>{{ evenement.typeEvent.typeEvent }} au {{ evenement.lieuEvent.adresse }}</div>
                             <div></div>
                             <div>{{evenement.groupe.nomGroupe}}</div>

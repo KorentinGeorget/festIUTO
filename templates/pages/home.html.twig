@@ -14,7 +14,7 @@
             <div> 
                 <h2>Festival : {{ festival.nom }}</h2>
                 <div> Date début: {{ festival.dateDebut|date('Y-m-d') }}</div>
-                <div> Date fin: {{ festival.dateFin|date("%m mois et %d jours") }}</div>
+                <div> Date fin: {{ festival.dateFin|date("Y-m-d") }}</div>
                 <div><a href="{{ path('evenementsFestival', {id : festival.id })}}">voir</a></div>
             </div>
             <div> 

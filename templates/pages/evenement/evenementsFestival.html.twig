@@ -11,19 +11,17 @@
             {% for evenement in evenements %}
                 <div class="wrapperFavoris wrapper">
                     <h2>{{ evenement.nom }}</h2>
-                    <div>{{ evenement.dateEv|date('d/m/Y') }}</div>
-                    <div>{{ evenement.heureDebut|date('H:i') }}</div>
-                    <div>{{ evenement.dureeEv|date('H:i') }}</div>
-                    <div>{{ evenement.typeEvent.typeEvent }}</div>
-                    <div>{{ evenement.lieuEvent.adresse }}</div>
-                    <div>{{evenement.groupe.nomGroupe}}</div>
-                    <div>{{ evenement.lieuEvent.nombrePlaceLieu }}</div>
+                    <div>Dates : {{ evenement.dateEv|date('d/m/Y') }}</div>
+                    <div>Heure début : {{ evenement.heureDebut|date('H:i') }}</div>
+                    <div>Durée : {{ evenement.dureeEv|date('H:i') }}</div>
+                    <div>Type : {{ evenement.typeEvent.typeEvent }}</div>
+                    <div>Lieu : {{ evenement.lieuEvent.adresse }}</div>
+                    <div>Groupe : {{evenement.groupe.nomGroupe}}</div>
+                    <div>{{ evenement.lieuEvent.nombrePlaceLieu }} place</div>
                     <div><a href="{{ path('evenement.show', { id : evenement.id })}}">voir</a></div>
                     {% if app.user %}
                         {% if 'ROLE_SPECTATEUR' in app.user.roles %}
                                 <div><a href="{{ path('evenement.participe', {id : evenement.id} )}}">participer</a></div>
-                        {% else %}
-                            <div><a disabled>participer</a></div>
                         {% endif %}
                     {% endif %}
                     {% if app.user %}

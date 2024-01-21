@@ -1,4 +1,4 @@
-# README - Projet Symfony
+# README - Projet FestIUT'O
 
 ## Clonage du projet
 1. **Cloner le projet.**

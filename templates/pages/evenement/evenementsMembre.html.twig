@@ -54,8 +54,8 @@
                             <div>Durée : {{ evenement.dureeEv|date('H:i') }}h</div>
                             <div>{{ evenement.typeEvent.typeEvent }} au {{ evenement.lieuEvent.adresse }}</div>
                             <div></div>
-                            <div>{{evenement.groupe.nomGroupe}}</div>
-                            <div>{{ evenement.lieuEvent.nombrePlaceLieu }}</div>
+                            <div>Groupe : {{evenement.groupe.nomGroupe}}</div>
+                            <div>{{ evenement.lieuEvent.nombrePlaceLieu }} places</div>
                             <div><a href="{{ path('evenement.show', { id : evenement.id })}}">voir</a></div>
                         </div>
                     {% endfor %}

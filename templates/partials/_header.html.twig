@@ -10,7 +10,7 @@
             {% if is_granted('ROLE_MEMBRE') %}
             {% endif %}
 
-            {% if app.user %}
+            {% if is_granted('ROLE_SPECTATEUR', 'ROLE_MEMBRE') %}
                 <li><a href="{{ path('participationsMembre', { id : app.user.id })}}">Mes evenements</a></li>
             {% endif %}
 

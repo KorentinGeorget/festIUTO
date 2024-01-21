@@ -23,7 +23,8 @@ class SpectateurCrudController extends AbstractCrudController
             IdField::new('id', 'ID')->onlyOnIndex(),
             TextField::new('nom', 'Nom du spectateur'),
             TextField::new('prenom', 'Prénom du spectateur'),
-            AssociationField::new('billets', 'Billets'),
+            AssociationField::new('billets', 'Billets')
+                ->setFormTypeOption('disabled', true),
             AssociationField::new('evenements', 'Événements'),
             AssociationField::new('groupeFavoris', 'GroupesFavoris'),
             AssociationField::new('user', 'Utilisateur'),

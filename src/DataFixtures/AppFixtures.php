@@ -36,20 +36,20 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
 
+
+        
+
         // Exemple de jeu de données pour TypeBillet
         $typeBillet1 = new TypeBillet();
         $typeBillet1->setTypeBillet('journée');
-        $dateInterval = new \DateInterval('P1D'); // Période de 1 jour
         $dateTime = new \DateTime();
-        $dateTime->add($dateInterval);
+        $dateTime->modify('+24 hours');
         $typeBillet1->setDureeBillet($dateTime);
         $manager->persist($typeBillet1);
 
         $typeBillet2 = new TypeBillet();
         $typeBillet2->setTypeBillet('2jours');
-        $dateInterval = new \DateInterval('P2D'); // Période de 2 jours
         $dateTime = new \DateTime();
-        $dateTime->add($dateInterval);
         $typeBillet2->setDureeBillet($dateTime);
         $manager->persist($typeBillet2);
 
@@ -57,7 +57,6 @@ class AppFixtures extends Fixture
         $typeBillet3->setTypeBillet('totalité');
         $dateInterval = new \DateInterval('P7D'); 
         $dateTime = new \DateTime();
-        $dateTime->add($dateInterval);
         $typeBillet3->setDureeBillet($dateTime);
         $manager->persist($typeBillet3);
 
@@ -70,9 +69,11 @@ class AppFixtures extends Fixture
 
         $spectateurs = new ArrayCollection();
         for ($i = 0; $i < 80; $i++) {
+            $nom = $this->faker->lastName;
+            $prenom = $this->faker->firstName;
             $spectateur = new Spectateur();
-            $spectateur->setPrenom($this->faker->firstName)
-                ->setNom($this->faker->lastName);
+            $spectateur->setPrenom($prenom)
+                ->setNom($nom);
             $manager->persist($spectateur);
 
             $possedeBillet = new PossedeBillet();
@@ -91,8 +92,8 @@ class AppFixtures extends Fixture
             $user = new User();
             $user->setEmail($this->faker->email)
                 ->setRoles(['ROLE_USER','ROLE_SPECTATEUR'])
-                ->setNom($this->faker->lastName)
-                ->setPrenom($this->faker->firstName)
+                ->setNom($nom)
+                ->setPrenom($prenom)
                 ->setPlainPassword('password')
                 ->setSpectateur($spectateur);
 
@@ -165,9 +166,11 @@ class AppFixtures extends Fixture
 
         $membres = new ArrayCollection();
         for($i = 0; $i < 80; $i++){
+            $nom = $this->faker->lastName;
+            $prenom = $this->faker->firstName;
             $membre = new Membre();
-            $membre->setNom($this->faker->lastName)
-                ->setPrenom($this->faker->firstName);
+            $membre->setNom($nom)
+                ->setPrenom($prenom);
             // Exemple de jeu de données pour membre possede un/des instrument(s)
             $nbMembres = $this->faker->numberBetween(1, 3);
             for ($j = 0; $j < $nbMembres; $j++) {
@@ -180,8 +183,8 @@ class AppFixtures extends Fixture
             $user = new User();
             $user->setEmail($this->faker->email)
                 ->setRoles(['ROLE_USER','ROLE_MEMBRE'])
-                ->setNom($this->faker->lastName)
-                ->setPrenom($this->faker->firstName)
+                ->setNom($nom)
+                ->setPrenom($prenom)
                 ->setPlainPassword('password')
                 ->setMembre($membre);
 
@@ -269,9 +272,9 @@ class AppFixtures extends Fixture
 
             $festival = new Festival();
             $festival->setNom($this->faker->word)
-                ->setDuree(new \DateInterval('P10D'))
                 ->setDescription($this->faker->text)
-                ->setDateDebut(DateTimeImmutable::createFromMutable($startDate));
+                ->setDateDebut(DateTimeImmutable::createFromMutable($startDate))
+                ->setDateFin(DateTimeImmutable::createFromMutable($endDate));
             foreach($evenements as $evenement){
                 $festival->addEvenement($evenement);
             }
@@ -300,7 +303,7 @@ class AppFixtures extends Fixture
         for($i = 0; $i < 2; $i++){
             $user = new User();
             $user->setEmail($this->faker->email)
-                ->setRoles(['ROLE_ADMIN'])
+                ->setRoles(['ROLE_USER','ROLE_ADMIN'])
                 ->setNom($this->faker->lastName)
                 ->setPrenom($this->faker->firstName)
                 ->setPlainPassword('admin');
@@ -308,6 +311,63 @@ class AppFixtures extends Fixture
         }
 
 
+        // USER TEST FIXE
+
+        $user = new User();
+        $user->setEmail("admin@gmail.com")
+            ->setRoles(['ROLE_USER','ROLE_ADMIN'])
+            ->setNom("Doe")
+            ->setPrenom("John")
+            ->setPlainPassword('password');
+        $manager->persist($user);
+
+
+        $spectateur = new Spectateur();
+        $spectateur->setNom("Marechal")
+            ->setPrenom("Roger")
+            ->addGroupeFavori($this->faker->randomElement($groupes))
+            ->addGroupeFavori($this->faker->randomElement($groupes))
+            ->addEvenement($this->faker->randomElement($evenements))
+            ->addEvenement($this->faker->randomElement($evenements))
+            ->addEvenement($this->faker->randomElement($evenements));
+
+        $possedeBillet = new PossedeBillet();
+        $possedeBillet->setSpectateur($spectateur)
+            ->setBillet($this->faker->randomElement([$typeBillet1,$typeBillet2,$typeBillet3]));
+        $dateObtention = new \DateTime();
+        $possedeBillet->setDateObtention($dateObtention);
+        $manager->persist($possedeBillet);
+
+        $spectateur->addBillet($possedeBillet);
+        $manager->persist($spectateur);
+
+        $user = new User();
+        $user->setEmail("spectateur@gmail.com")
+            ->setRoles(['ROLE_USER','ROLE_SPECTATEUR'])
+            ->setNom("Marechal")
+            ->setPrenom("Roger")
+            ->setPlainPassword('password')
+            ->setSpectateur($spectateur);
+        $manager->persist($user);
+
+
+        $membre = new Membre();
+        $membre->setNom("Dias")
+            ->setPrenom("Noemie")
+            ->setGroupe($this->faker->randomElement($groupes))
+            ->addInstrument($this->faker->randomElement($instruments))
+            ->addInstrument($this->faker->randomElement($instruments))
+            ->setGroupe($this->faker->randomElement($groupes));
+        $manager->persist($membre);
+
+        $user = new User();
+        $user->setEmail("membre@gmail.com")
+            ->setRoles(['ROLE_USER','ROLE_MEMBRE'])
+            ->setNom("Dias")
+            ->setPrenom("Noemie")
+            ->setPlainPassword('password')
+            ->setMembre($membre);
+        $manager->persist($user);
 
         $manager->flush();
 

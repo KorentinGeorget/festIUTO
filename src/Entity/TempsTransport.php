@@ -9,18 +9,30 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: TempsTransportRepository::class)]
 class TempsTransport
 {
+
     #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+
     #[ORM\ManyToOne(inversedBy: 'tempsTransports')]
     #[ORM\JoinColumn(nullable: false)]
     private ?LieuEvent $lieu1 = null;
 
-    #[ORM\Id]
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?LieuEvent $lieu2 = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $temps = null;
+
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
 
     public function getLieu1(): ?LieuEvent
     {
@@ -56,5 +68,10 @@ class TempsTransport
         $this->temps = $temps;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getLieu1()->getNomLieu() . ' - ' . $this->getLieu2()->getNomLieu() . ' : ' . $this->getTemps()->format('H:i');
     }
 }

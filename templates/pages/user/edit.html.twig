@@ -4,13 +4,6 @@
     <div class="container">
         <h1>Edition du profil</h1>
 
-
-        {% for message in app.flashes('warning') %}
-			<div>
-				{{ message }}
-			</div>
-		{% endfor %}
-
         {{ form(form) }}
 
     </div>

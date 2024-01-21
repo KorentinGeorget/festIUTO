@@ -197,4 +197,9 @@ class Groupe
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->nomGroupe;
+    }
 }

@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class GroupeController extends AbstractController
 {
@@ -20,6 +21,7 @@ class GroupeController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_SPECTATEUR')]
     #[Route('/groupe/{id}/ajouter', name: 'groupe.ajouterFavoris')]
     public function ajouterFavoris(Groupe $groupe, EntityManagerInterface $manager): Response
     {
@@ -36,6 +38,7 @@ class GroupeController extends AbstractController
         return $this->redirectToRoute('groupe.index');
     }
 
+    #[IsGranted('ROLE_SPECTATEUR')]
     #[Route('/groupe/{id}/retirer', name: 'groupe.enleverFavoris')]
     public function enleverFavoris(Groupe $groupe, EntityManagerInterface $manager): Response
     {

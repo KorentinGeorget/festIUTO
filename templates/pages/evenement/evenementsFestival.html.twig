@@ -3,12 +3,6 @@
 {% block body %}
     <h1>Evenements du festival : {{ evenements[0].festival.nom }}</h1>
 
-        {% for message in app.flashes('warning') %}
-			<div>
-				{{ message }}
-			</div>
-		{% endfor %}
-
         <div>
             <table>
                 <thead>

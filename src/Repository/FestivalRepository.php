@@ -49,7 +49,7 @@ class FestivalRepository extends ServiceEntityRepository
     public function findAllNonFinished(): array
     {
         return $this->createQueryBuilder('f')
-            ->andWhere('(f.dateDebut+f.duree) > :date')
+            ->andWhere('(f.dateFin) > :date')
             ->setParameter('date', new \DateTime())
             ->orderBy('f.dateDebut', 'ASC')
             ->getQuery()

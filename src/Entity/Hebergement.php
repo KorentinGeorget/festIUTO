@@ -24,7 +24,7 @@ class Hebergement
     #[ORM\Column]
     private ?int $nbPlaceHebergement = null;
 
-    #[ORM\ManyToMany(targetEntity: Groupe::class, mappedBy: 'hebergement')]
+    #[ORM\ManyToMany(targetEntity: Groupe::class, mappedBy: 'hebergements')]
     private Collection $groupes;
 
     public function __construct()
@@ -98,5 +98,10 @@ class Hebergement
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->nomHebergement;
     }
 }

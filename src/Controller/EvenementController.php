@@ -12,9 +12,11 @@ use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class EvenementController extends AbstractController
 {
+    #[IsGranted('ROLE_USER')]
     #[Route('/evenement/Membre/{id}', name: 'participationsMembre')]
     public function participationsMembre(EvenementRepository $evenementRepository): Response
     {
@@ -66,9 +68,32 @@ class EvenementController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_SPECTATEUR')]
     #[Route('/evenement/{id}/participe', name: 'evenement.participe')]
     public function participe(Evenement $evenement, EntityManagerInterface $manager): Response
     {
+
+        if ($evenement->getSpectateurs()->count() >= $evenement->getLieuEvent()->getNombrePlaceLieu()) {
+            $this->addFlash('warning', 'Il n\'y a plus de place disponible pour cet événement !');
+            return $this->redirectToRoute('evenementsFestival', ['id' => $evenement->getFestival()->getId()]);
+        } 
+
+        $eventDateTime = new \DateTime($evenement->getDateEv()->format('Y-m-d') . ' ' . $evenement->getHeureDebut()->format('H:i:s'));
+        if($eventDateTime < new \DateTime('now')){
+            $this->addFlash('warning', 'Cet événement est déjà passé !');
+            return $this->redirectToRoute('evenementsFestival', ['id' => $evenement->getFestival()->getId()]);
+        }
+
+        if(!$evenement->getTypeEvent()->isIsPublic()){
+            $this->addFlash('warning', 'Cet événement n\'est pas accessible au public !');
+            return $this->redirectToRoute('evenementsFestival', ['id' => $evenement->getFestival()->getId()]);
+        }
+
+        // if($evenement->isIsPayant()){
+        //     $this->addFlash('warning', 'Cet événement est payant !');
+        //     return $this->redirectToRoute('evenementsFestival', ['id' => $evenement->getFestival()->getId()]);
+        // }
+
         $spectateur = $this->getUser()->getSpectateur();
         if (!$evenement->getSpectateurs()->contains($spectateur)) {
             if(!$evenement->getGroupe()->getMembres()->contains($this->getUser()->getMembre())){

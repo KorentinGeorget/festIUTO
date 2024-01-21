@@ -87,4 +87,9 @@ class TypeEvent
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->typeEvent;
+    }
 }

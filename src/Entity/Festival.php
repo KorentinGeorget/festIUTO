@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\FestivalRepository;
+use DateInterval;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -19,9 +20,6 @@ class Festival
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column]
-    private ?\DateInterval $duree = null;
-
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
@@ -30,6 +28,11 @@ class Festival
 
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $dateDebut = null;
+
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    private ?\DateTimeImmutable $dateFin = null;
+
+
 
     public function __construct()
     {
@@ -49,18 +52,6 @@ class Festival
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getDuree(): ?\DateInterval
-    {
-        return $this->duree;
-    }
-
-    public function setDuree(\DateInterval $duree): static
-    {
-        $this->duree = $duree;
 
         return $this;
     }
@@ -117,6 +108,28 @@ class Festival
         $this->dateDebut = $dateDebut;
 
         return $this;
+    }
+
+    public function countEvents(): int
+    {
+        return $this->evenements->count();
+    }
+
+    public function getDateFin(): ?\DateTimeImmutable
+    {
+        return $this->dateFin;
+    }
+
+    public function setDateFin(\DateTimeImmutable $dateFin): static
+    {
+        $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->nom;
     }
 
 }

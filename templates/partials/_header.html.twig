@@ -3,17 +3,21 @@
         <ul>
             <li><a href="{{ path('home')}}">Home</a></li>
             <li><a href="{{ path('groupe.index')}}">Groupes</a></li>
-            {% if app.user %}
-                {% if 'ROLE_SPECTATEUR' in app.user.roles %}
-                {% endif %}
-                {% if 'ROLE_MEMBRE' in app.user.roles %}
-                    
-                {% endif %}
-                <li><a href="{{ path('participationsMembre', { id : app.user.id })}}">Mes evenements</a></li>
-                {% if 'ROLE_ADMIN' in app.user.roles %}
-                    <li><a href="{{ path('admin')}}">Admin</a></li>
-                {% endif %}
+
+            {% if is_granted('ROLE_SPECTATEUR') %}
             {% endif %}
+            
+            {% if is_granted('ROLE_MEMBRE') %}
+            {% endif %}
+
+            {% if app.user %}
+                <li><a href="{{ path('participationsMembre', { id : app.user.id })}}">Mes evenements</a></li>
+            {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('admin')}}">Admin</a></li>
+            {% endif %}
+
             {% if app.user %}
                 <li><a href="{{ path('user.show', { id : app.user.id })}}">Profil</a></li>
                 <li><a href="{{ path('security.logout')}}">Déconnexion</a></li>

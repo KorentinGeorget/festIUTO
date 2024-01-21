@@ -96,4 +96,15 @@ class EvenementRepository extends ServiceEntityRepository
         ;
     }
 
+    public function EvenementNotInFestival(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.festival IS NULL')
+            ->orderBy('e.dateEv', 'ASC')
+            ->addOrderBy('e.heureDebut', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 }

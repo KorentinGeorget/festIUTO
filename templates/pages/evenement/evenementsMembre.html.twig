@@ -7,7 +7,7 @@
 
 {% block body %}
     <h1>Vos evenements</h1>
-    {% if 'ROLE_MEMBRE' in app.user.roles %}
+    {% if is_granted('ROLE_MEMBRE') %}
         <div>
             <h2>En tant que membres :</h2>
         {% if evenementsMembre is not null %}
@@ -47,7 +47,7 @@
         
         
     {% endif %} 
-    {% if 'ROLE_SPECTATEUR' in app.user.roles %}
+    {% if is_granted('ROLE_SPECTATEUR') %}
        <section>
             <h2>En tant que Spectateurs :</h2>
             {% if evenementsSpectateur is not null %}

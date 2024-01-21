@@ -9,18 +9,28 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: PossedeBilletRepository::class)]
 class PossedeBillet
 {
+
     #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+
     #[ORM\ManyToOne(inversedBy: 'billets')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Spectateur $spectateur = null;
 
-    #[ORM\Id]
     #[ORM\ManyToOne(inversedBy: 'spectateurs')]
     #[ORM\JoinColumn(nullable: false)]
     private ?TypeBillet $billet = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateObtention = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
 
     public function getSpectateur(): ?Spectateur
@@ -57,5 +67,10 @@ class PossedeBillet
         $this->dateObtention = $dateObtention;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getSpectateur()->getNom() . ' ' . $this->getSpectateur()->getPrenom() . ' ' . $this->getBillet()->getTypeBillet();
     }
 }

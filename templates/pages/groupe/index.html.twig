@@ -3,18 +3,6 @@
 {% block body %}
     <h1>Groupes :</h1>
 
-    {% for message in app.flashes('success') %}
-        <div>
-            {{ message }}
-        </div>
-    {% endfor %}
-
-    {% for message in app.flashes('warning') %}
-        <div>
-            {{ message }}
-        </div>
-    {% endfor %}
-
     <ul>
         {% for groupe in groupes %}  
             <li>

@@ -12,13 +12,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use symfony\Component\Security\Core\Security;
 
 class UserController extends AbstractController
 {
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/utilisateur/{id}', name: 'user.show')]
     public function show(User $user, MembreRepository $membre): Response
     {
+
+        if ($this->getUser() !== $user) {
+            return $this->redirectToRoute('user.show', ['id' => $this->getUser()->getId()]);
+        }
 
         if(in_array('ROLE_MEMBRE', $user->getRoles())){
             $membres = $membre->findByUser($user);    
@@ -38,15 +45,14 @@ class UserController extends AbstractController
         ]);
     }
 
+
+    #[IsGranted('ROLE_USER')]
     #[Route('/utilisateur/edit/{id}', name: 'user.edit')]
     public function edit(User $user, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher): Response
     {
-        if(!$this->getUser()){
-            return $this->redirectToRoute('security.login');
-        }
 
         if($this->getUser() !== $user){
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('user.edit' , ['id' => $this->getUser()->getId()]);
         }
 
         $form = $this->createForm(UserType::class, $user);
@@ -75,9 +81,16 @@ class UserController extends AbstractController
 
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/utilisateur/editMotDePasse/{id}', name: 'user.editMotDePasse')]
     public function editPassword(User $user, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher) : Response
     {
+
+        if($this->getUser() !== $user){
+            return $this->redirectToRoute('user.editMotDePasse' , ['id' => $this->getUser()->getId()]);
+        }
+
+
         $form = $this->createForm(UserPasswordType::class);
 
 

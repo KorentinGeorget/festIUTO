@@ -1,16 +1,40 @@
 body{
     overflow-x: hidden;
 }
+section::before{
+    content: "";
+    width:500px;
+    height: 500px;
+    background-color: rgb(0, 128, 255);
+    position: absolute;
+    left:-10%;
+    top:-10%;
+    filter: blur(200px);
+    z-index: -2;
+}
+section::after{
+    content: "";
+    width:500px;
+    height: 500px;
+    background-color: rgb(0, 128, 255);
+    position: absolute;
+    right:-10%;
+    bottom:-10%;
+    filter: blur(200px);
+    z-index: -2;
+}
 
 .wrapper{
+    padding:2em;
+    background-color: rgb(5, 156, 215);
+    border: solid rgb(0, 69, 79) 6px;
+}
+.festi{
     display: flex;
     width:90vw;
     height: auto;
-    padding:2em;
-    background-color: #fff;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.507);
-    border-radius: 1em;
-    border: solid black thin;
+    border-top-left-radius: 4em;
+    border-bottom-right-radius: 4em;
 }
 
 section{
@@ -22,47 +46,43 @@ section{
     gap: 3em;
 
     margin-top: 5em;
-    margin-bottom: 5em;
+    margin-bottom: 10em;
 
 }
 
-.wrapper div:nth-child(1){
-    flex-basis: 20%;
-    font-weight: 600;
-}
-.wrapper div:nth-child(2){flex-basis: 50%;}
-.wrapper div:nth-child(3){flex-basis: 10%;}
-.wrapper div:nth-child(4){flex-basis: 10%;}
-.wrapper div:nth-child(5){flex-basis: 10%;}
-
-.wrapper div{
+.wrapper > div:nth-child(1){
+    flex-basis: 35%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+}
+
+.wrapper > div:nth-child(2){
+    flex-basis: 65%;
+    font-size:140%;
+    color: white;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+
+
+.wrapper > div:nth-child(1) div{
     align-items: center;
     font-size:130%;
-
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #F7E5D4;
+    text-transform: uppercase;
+}
+h2{
+    font-size: 210%;
+    color: rgb(255, 132, 0);
+    text-shadow: 0px 0 2px rgb(0, 0, 0);
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
+b{
+    color: #ffe0c3;
 
-
-.informationFestival {
-    width:80vw;
-    display: flex;
-    justify-content: space-evenly;
-    align-self: flex-start;
-    margin-left: 6vw;
-}
-
-.informationFestival p:nth-child(1){flex-basis: 20%;}
-.informationFestival p:nth-child(2){flex-basis: 50%;}
-.informationFestival p:nth-child(3){flex-basis: 10%;}
-.informationFestival p:nth-child(4){flex-basis: 10%;}
-
-.informationFestival p{
-    display: flex;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 1.7em;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 
@@ -70,6 +90,7 @@ section{
 
 
 .infoFavoris {
+    position: relative;
     width: 100vw;
     display: flex;
     align-items: center;
@@ -80,14 +101,62 @@ section{
 
 .wrapperFavoris {
     min-width: 28vw;
-    background-color: #fff;
-    border-radius: 1em;
-    box-shadow: 3px 3px 6px rgba(23, 23, 252, 0.429);
     padding:1em;
+    border-bottom-right-radius: 3em;
+    border-top-right-radius: 3em;
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
+    background-color: rgb(33, 192, 255);
+
+
+}
+.wrapperFavoris h2{
+    font-size:200%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    color: #ffd7b2;
+    text-shadow: none;
+
 }
 
 
 .imgTicket{
     width:50px;
     height:50px;
+}
+
+.infoFavoris::before{
+    content: "Evenements de mon groupe favoris :";
+    position: absolute;
+    font-size:250%;
+    font-weight: 900;
+    top:-2em;
+    left: 8vw;
+    color: #F7E5D4;
+}
+.wrapperFavoris div{
+    color: white;
+    font-size: 120%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+
+}
+.wrapperFavoris > div:nth-child(2){
+    color: #ffefdf;
+
+}
+
+.btnVoirParticipez{
+    display: flex;
+    
+    justify-content: space-evenly;
+}
+
+.btnVoirParticipez a{
+    text-decoration-line: none;
+    color:rgb(54, 28, 0);
+    font-size: 150%;
+}
+
+.btnVoirParticipez a:hover{
+
+    transform: scale(1.1);
 }

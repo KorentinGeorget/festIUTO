@@ -13,10 +13,7 @@ section{
     margin-bottom: 5em;
 
 }
-.imgTicket{
-    width:50px;
-    height:50px;
-}
+
 
 .wrapper{
     padding:2em;
@@ -26,7 +23,9 @@ section{
 
 
 .wrapperFavoris {
-    min-width: 28vw;
+    min-width: 20vw;
+    max-width: 30vw;
+
     padding:1em;
     border-bottom-right-radius: 3em;
     border-top-right-radius: 3em;
@@ -54,6 +53,11 @@ section{
 .wrapperFavoris > div:nth-child(2){
     color: #ffefdf;
 
+}
+
+.imgTicket{
+    width:50px;
+    height:50px;
 }
 
 main{

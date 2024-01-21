@@ -1,54 +1,38 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets%}
+        <link rel="stylesheet" href="{{ asset('css/eventFestival.css') }}">
+{% endblock %}
+
 {% block body %}
     <h1>Evenements du festival : {{ evenements[0].festival.nom }}</h1>
 
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nom evenement</th>
-                        <th>date</th>
-                        <th>Heure début</th>
-                        <th>Durée</th>
-                        <th>Type</th>
-                        <th>Adresse</th>
-                        <th>Groupe</th>
-                        <th>Nombre de place</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for evenement in evenements %}
-                        <tr>
-                            <td>{{ evenement.nom }}</td>
-                            <td>{{ evenement.dateEv|date('d/m/Y') }}</td>
-                            <td>{{ evenement.heureDebut|date('H:i') }}</td>
-                            <td>{{ evenement.dureeEv|date('H:i') }}</td>
-                            <td>{{ evenement.typeEvent.typeEvent }}</td>
-                            <td>{{ evenement.lieuEvent.adresse }}</td>
-                            <td>{{evenement.groupe.nomGroupe}}</td>
-                            <td>{{ evenement.lieuEvent.nombrePlaceLieu }}</td>
-                            <td><a href="{{ path('evenement.show', { id : evenement.id })}}">voir</a></td>
-                            {% if app.user %}
-                                {% if 'ROLE_SPECTATEUR' in app.user.roles %}
-                                     <td><a href="{{ path('evenement.participe', {id : evenement.id} )}}">participer</a></td>
-                                {% else %}
-                                    <td><a disabled>participer</a></td>
-                                {% endif %}
-                            {% endif %}
-                            {% if app.user %}
-                                {% if app.user.spectateur in evenement.spectateurs %}
-                                    <div><img src="{{asset('images/ticketConcert.png')}}" alt="" class="imgTicket"></div>
-                                {% endif %}
-                            {% endif %}
-                            
-                            
-                            
-
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>     
+        <section>
+            {% for evenement in evenements %}
+                <div class="wrapperFavoris wrapper">
+                    <h2>{{ evenement.nom }}</h2>
+                    <div>{{ evenement.dateEv|date('d/m/Y') }}</div>
+                    <div>{{ evenement.heureDebut|date('H:i') }}</div>
+                    <div>{{ evenement.dureeEv|date('H:i') }}</div>
+                    <div>{{ evenement.typeEvent.typeEvent }}</div>
+                    <div>{{ evenement.lieuEvent.adresse }}</div>
+                    <div>{{evenement.groupe.nomGroupe}}</div>
+                    <div>{{ evenement.lieuEvent.nombrePlaceLieu }}</div>
+                    <div><a href="{{ path('evenement.show', { id : evenement.id })}}">voir</a></div>
+                    {% if app.user %}
+                        {% if 'ROLE_SPECTATEUR' in app.user.roles %}
+                                <div><a href="{{ path('evenement.participe', {id : evenement.id} )}}">participer</a></div>
+                        {% else %}
+                            <div><a disabled>participer</a></div>
+                        {% endif %}
+                    {% endif %}
+                    {% if app.user %}
+                        {% if app.user.spectateur in evenement.spectateurs %}
+                            <div><img src="{{asset('images/ticketConcert.png')}}" alt="" class="imgTicket"></div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </section>     
 
 {% endblock %}

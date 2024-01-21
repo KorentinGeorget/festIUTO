@@ -1,43 +1,62 @@
 {% extends "base.html.twig" %}
-
+{% block stylesheets%}
+        <link rel="stylesheet" href="{{ asset('css/groupe.css') }}">
+{% endblock %}
 {% block body %}
     <h1>Groupes :</h1>
 
-    <ul>
+    <ul class="wrapperGroupe">
         {% for groupe in groupes %}  
             <li>
                 <ul>
-                    <li>Nom : {{groupe.nomGroupe}}</li>
-                    <li>Style : <ul>
-                        {% for style in groupe.styles %}
-                            <li>{{style.nomStyle}}</li>
-                        {% endfor %}
-                    </ul> </li>
-                    <li>Membres : <ul>
-                        {% for membre in groupe.membres %}
-                            <li>{{membre.nom}} {{membre.prenom}} joue :<ul>
-                                {% for instrument in membre.instruments %}
-                                    <li>{{instrument.nomInstrument}}</li>
-                                {% endfor %}
-                            </ul></li>
-                        {% endfor %}
-                    </ul></li>
+                    <li class="carteGroupe">
+                        <p>Groupe : {{groupe.nomGroupe}}</p>
+                        <ul>
+                            <li>
+                                <p>Style</p> 
+                                <ul>
+                                    {% for style in groupe.styles %}
+                                        <li>{{style.nomStyle}}</li>
+                                    {% endfor %}
+                                </ul> 
+                            </li>
+                            <li>
+                                <p>Membres</p> 
+                                <ul>
+                                    {% for membre in groupe.membres %}
+                                        <li>{{membre.nom}} {{membre.prenom}} joue :<ul>
+                                            {% for instrument in membre.instruments %}
+                                                <li class="instrument"> -{{instrument.nomInstrument}}</li>
+                                            {% endfor %}
+                                        </ul></li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            <li>
+
+                                {% if app.user %}
+                                {% if app.user.spectateur %}
+                                <div><a href="{{ path('groupe.ajouterFavoris', { id : groupe.id })}}">+ Favoris</a></div>
+                                {% endif %}
+                                {% endif %}
+                                <br>
+                                <br>
+                                {% if app.user %}
+                                {% if app.user.spectateur %}
+                                {% if app.user.spectateur in groupe.spectateursFavoris %}
+                                <div><img src="{{asset('images/stars.png')}}" alt="" class="imgTicket"></div>
+                                {% endif %}
+                                {% endif %}
+                                {% endif %}
+                            
+                          
+
+                            </li>
+                        </ul>
+
+                    </li>
                 </ul>
             </li>
-            {% if app.user %}
-            {% if app.user.spectateur %}
-            <li><a href="{{ path('groupe.ajouterFavoris', { id : groupe.id })}}">Ajouter aux favoris</a></li>
-            {% endif %}
-            {% endif %}
-            <br>
-            <br>
-            {% if app.user %}
-            {% if app.user.spectateur %}
-            {% if app.user.spectateur in groupe.spectateursFavoris %}
-            <li><img src="" alt="">test</li>
-            {% endif %}
-            {% endif %}
-            {% endif %}
         {% endfor %}
     </ul>
 {% endblock %}

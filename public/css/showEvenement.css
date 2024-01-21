@@ -1,0 +1,84 @@
+body{
+    overflow-x: hidden;
+    
+}
+.carteGroupe{
+    display: flex;
+    flex-direction: column;
+    max-width: 45vw;
+    padding:1em;
+    background-color: rgb(5, 156, 215);
+    border: solid rgb(0, 69, 79) 6px;
+    color: #ffdbb9;
+    font-size:150%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 3em;
+    height: fit-content;
+}
+li , ul{
+    margin:0;
+    padding: 0;
+    list-style-type: none;
+}
+
+
+.carteGroupe > ul{
+    display: flex;
+}
+
+.carteGroupe > ul > li:nth-child(1){
+    flex-basis: 30%;
+}
+
+
+.carteGroupe > ul > li:nth-child(2){
+    flex-basis: 70%;
+}
+
+.carteGroupe  p {
+    font-size: 120%;
+    margin-bottom: 1em;
+    color: #ffb167;
+    text-shadow: 2px 0px 1px #ffbc7e;
+}
+
+
+h1{
+    color: #ffdbb9;
+    font-size:200%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin-left:-1em;
+    margin-top:1em;
+}
+main{
+    padding-left:4em;
+}
+
+
+.carteInfo{
+    display: flex;
+    flex-direction: column;
+    max-width: 45vw;
+    padding:1em;
+    background-color: rgb(5, 156, 215);
+    border: solid rgb(0, 69, 79) 6px;
+    color: #ffdbb9;
+    font-size:150%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 3em;
+    height: fit-content;
+
+}
+
+.carteInfo h2{
+    color: #ffb167;
+
+    font-size:120%;
+}
+
+main > ul{
+    display: flex;
+    justify-content: center;
+    gap:2em;
+    margin-top: 3em;
+}

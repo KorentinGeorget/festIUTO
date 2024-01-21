@@ -8,71 +8,52 @@
 {% block body %}
     <h1>Vos evenements</h1>
     {% if is_granted('ROLE_MEMBRE') %}
-        <div>
-            <h2>En tant que membres :</h2>
+        <h2>En tant que membres :</h2>
+        <section>
         {% if evenementsMembre is not null %}
             {% if evenementsMembre is not empty %}
-                
-                    <div class = "informationFestival">
-                        <p>Nom du festival</p>
-                        <p>Nom evenement</p>
-                        <p>date</p>
-                        <p>Heure début</p>
-                        <p>durée</p>
-                        <p>Type</p>
-                        <p>Adresse</p>
-                        <p>Nombre de place</p>
+                    
+                {% for evenement in evenementsMembre %}
+                <div class="wrapperFavoris wrapper">
+                        <h2>{{ evenement.festival.nom }}</h2>
+                        <h2>{{ evenement.nom }}</h2>
+                        <div>{{ evenement.dateEv|date('d/m/Y') }}</div>
+                        <div>Heure de début : {{ evenement.heureDebut|date('H:i') }}h</div>
+                        <div>Durée {{ evenement.dureeEv|date('H:i') }}h</div>
+                        <div>{{ evenement.typeEvent.typeEvent }} au {{ evenement.lieuEvent.adresse }}</div>
+                        <div></div>
+                        <div>{{ evenement.lieuEvent.nombrePlaceLieu }}</div>
+                        <div><a href="{{ path('evenement.show', { id : evenement.id })}}">voir</a></div>
                     </div>
-                        {% for evenement in evenementsMembre %}
-                            <div class="wrapper">
-                                <div>{{ evenement.festival.nom }}</div>
-                                <div>{{ evenement.nom }}</div>
-                                <div>{{ evenement.dateEv|date('d/m/Y') }}</div>
-                                <div>{{ evenement.heureDebut|date('H:i') }}</div>
-                                <div>{{ evenement.dureeEv|date('H:i') }}</div>
-                                <div>{{ evenement.typeEvent.typeEvent }}</div>
-                                <div>{{ evenement.lieuEvent.adresse }}</div>
-                                <div>{{ evenement.lieuEvent.nombrePlaceLieu }}</div>
-                                <div><a href="{{ path('evenement.show', { id : evenement.id })}}">voir</a></div>
-
-                            </div>
-                        {% endfor %} 
+                    
+                {% endfor %} 
             {% else %}
                 <h3>Aucun événement</h3>
             {% endif %}
         {% else %}
             <h3>Aucun événement</h3>
         {% endif %}
-        </div>
+        </section>
         
         
     {% endif %} 
     {% if is_granted('ROLE_SPECTATEUR') %}
+    <h2>En tant que Spectateurs :</h2>
+
        <section>
-            <h2>En tant que Spectateurs :</h2>
             {% if evenementsSpectateur is not null %}
                 {% if evenementsSpectateur is not empty %}
                 
                 
-                    <div class = "informationFestival">
-                        <p>Nom du festival</p>
-                        <p>Nom evenement</p>
-                        <p>date</p>
-                        <p>Heure début</p>
-                        <p>durée</p>
-                        <p>Type</p>
-                        <p>Adresse</p>
-                        <p>Nombre de place</p>
-                    </div>
                     {% for evenement in evenementsSpectateur %}
-                        <div class="wrapper">
-                            <div>{{ evenement.festival.nom }}</div>
-                            <div>{{ evenement.nom }}</div>
+                        <div class="wrapperFavoris wrapper">
+                            <h2>{{ evenement.nom }}</h2>
                             <div>{{ evenement.dateEv|date('d/m/Y') }}</div>
-                            <div>{{ evenement.heureDebut|date('H:i') }}</div>
-                            <div>{{ evenement.dureeEv|date('H:i') }}</div>
-                            <div>{{ evenement.typeEvent.typeEvent }}</div>
-                            <div>{{ evenement.lieuEvent.adresse }}</div>
+                            <div>Heure de début : {{ evenement.heureDebut|date('H:i') }}h</div>
+                            <div>Durée {{ evenement.dureeEv|date('H:i') }}h</div>
+                            <div>{{ evenement.typeEvent.typeEvent }} au {{ evenement.lieuEvent.adresse }}</div>
+                            <div></div>
+                            <div>{{evenement.groupe.nomGroupe}}</div>
                             <div>{{ evenement.lieuEvent.nombrePlaceLieu }}</div>
                             <div><a href="{{ path('evenement.show', { id : evenement.id })}}">voir</a></div>
                         </div>

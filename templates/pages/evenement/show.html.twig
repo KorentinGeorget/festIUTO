@@ -1,5 +1,11 @@
 {% extends "base.html.twig" %}
 
+
+
+{% block stylesheets%}
+        <link rel="stylesheet" href="{{ asset('css/showEvenement.css') }}">
+{% endblock %}
+
 {% block body %}
     <h1>Evenement : {{ evenement.nom }}</h1>
 
@@ -27,9 +33,7 @@
                     </ul></li>
                 </ul>
             </li>
-            <li>{{evenement.typeEvent.typeEvent}}</li>
-            <li>Adresse : {{evenement.lieuEvent.adresse}}</li>
-            <li>Nombre de place total : {{ evenement.lieuEvent.nombrePlaceLieu }}</li>
+           
         </ul>
 
         {% if app.user %}

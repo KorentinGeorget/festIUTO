@@ -8,19 +8,19 @@
 
 
 <section>
-    <div class = "informationFestival">
-        <p>Nom du festival</p>
-        <p>Description</p>
-        <p>dateDébut</p>
-        <p>dateFin</p>
-    </div>
+
     {% for festival in festivals %}
-        <div class="wrapper">
-            <div>{{ festival.nom }}</div>
-            <div>{{ festival.description }}</div>
-            <div>{{ festival.dateDebut|date('Y-m-d') }}</div>
-            <div>{{ festival.dateFin|date('Y-m-d') }}</div>
-            <div><a href="{{ path('evenementsFestival', {id : festival.id })}}">voir</a></div>
+        <div class="wrapper festi">
+            <div> 
+                <h2>Festival : {{ festival.nom }}</h2>
+                <div> date: {{ festival.dateDebut|date('Y-m-d') }}</div>
+                <div> durée: {{ festival.duree|date("%m mois et %d jours") }}</div>
+                <div><a href="{{ path('evenementsFestival', {id : festival.id })}}">voir</a></div>
+            </div>
+            <div> 
+                
+                <div><b>Description : </b>{{ festival.description }}</div>
+            </div>
         </div>
     {% endfor %}
 </section>
@@ -31,27 +31,32 @@
     {% if app.user.spectateur %}
     
     {% if app.user.spectateur.groupeFavoris is not empty %}
+    
         <div class="infoFavoris">
             
             {% for evenement in evenementsGroupeFavoris %}
-                <div class="wrapperFavoris">
-                    <div>{{ evenement.nom }}</div>
+                <div class="wrapperFavoris wrapper">
+                    <h2>{{ evenement.nom }}</h2>
                     <div>{{ evenement.dateEv|date('d/m/Y') }}</div>
-                    <div>{{ evenement.heureDebut|date('H:i') }}</div>
-                    <div>{{ evenement.dureeEv|date('H:i') }}</div>
-                    <div>{{ evenement.typeEvent.typeEvent }}</div>
-                    <div>{{ evenement.lieuEvent.adresse }}</div>
+                    <div>Heure de début : {{ evenement.heureDebut|date('H:i') }}h</div>
+                    <div>Durée {{ evenement.dureeEv|date('H:i') }}h</div>
+                    <div>{{ evenement.typeEvent.typeEvent }} au {{ evenement.lieuEvent.adresse }}</div>
+                    <div></div>
                     <div>{{evenement.groupe.nomGroupe}}</div>
                     <div>{{ evenement.lieuEvent.nombrePlaceLieu }}</div>
-                    <div><a href="{{ path('evenement.show', { id : evenement.id })}}">voir</a></div>
-                    {% if 'ROLE_SPECTATEUR' in app.user.roles %}
-                            <div><a href="{{ path('evenement.participe', {id : evenement.id} )}}">participer</a></div>
-                    {% else %}
-                        <div><a disabled>participer</a></div>
-                    {% endif %}
-                    {% if app.user.spectateur in evenement.spectateurs %}
-                        <div><img src="{{asset('images/ticketConcert.png')}}" alt="" class="imgTicket"></div>
-                    {% endif %}
+                    <div class="btnVoirParticipez">
+                        <a href="{{ path('evenement.show', { id : evenement.id })}}">voir</a>
+                        
+                        {% if 'ROLE_SPECTATEUR' in app.user.roles %}
+                                <a href="{{ path('evenement.participe', {id : evenement.id} )}}">participer</a>
+                        {% else %}
+                            <div><a disabled>participer</a></div>
+                        {% endif %}
+                        {% if app.user.spectateur in evenement.spectateurs %}
+                        <img src="{{asset('images/ticketConcert.png')}}" alt="" class="imgTicket">
+                        {% endif %}
+                    </div>
+                    
                 </div>
             {% endfor %}
         </div>

@@ -38,8 +38,7 @@ Vérifier que votre système est prêt en utilisant la commande :
 ## Configuration initiale
 
 1. Aller dans la racine du projet.
-2. Exécuter la commande ```bash composer install
-```.
+2. Exécuter la commande ```bash composer install```.
 
 ## Création de la base de données et insertion de données de test
 ```bash
